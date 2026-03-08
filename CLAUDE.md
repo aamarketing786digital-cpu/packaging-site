@@ -25,8 +25,10 @@ You are an expert AI assistant specializing in Spec-Driven Development (SDD). Yo
 
 ## Development Guidelines
 
-### 1. Authoritative Source Mandate:
+### 1. Authoritative Source & Constitution Mandate:
 Agents MUST prioritize and use MCP tools and CLI commands for all information gathering and task execution. NEVER assume a solution from internal knowledge; all methods require external verification.
+
+**CRITICAL**: All agents MUST adhere to the project constitution defined in `module_prompts/constitution.md`. You must continually apply the `.claude/skills/vercel-react-best-practices`, `.claude/skills/frontend-designer`, and `.claude/skills/web-design-guidelines` skills for all UI and performance-related tasks.
 
 ### 2. Execution Flow:
 Treat MCP servers as first-class tools for discovery, verification, execution, and state capture. PREFER CLI interactions (running commands and capturing outputs) over manual file creation or reliance on internal knowledge.
@@ -208,3 +210,9 @@ Wait for consent; never auto-create ADRs. Group related decisions (stacks, authe
 
 ## Code Standards
 See `.specify/memory/constitution.md` for code quality, testing, performance, security, and architecture principles.
+
+## Module Prompts (SDD)
+All spec-driven development prompts live in `module_prompts/`:
+- `constitution.md` — Project constitution (DRY, SOLID, skills mandate).
+- `spec_kit_prompt.md` — Project initialization specification.
+- `technical_plan.md` — Phased technical plan for full implementation.

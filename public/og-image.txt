@@ -1,0 +1,40 @@
+<!-- OG Image Placeholder (1200x630)
+     To create the actual OG image:
+
+     1. Use an online tool like: https://www.canva.com/templates/search/og-image/
+     2. Or create one programmatically with Node.js
+
+     For this packaging website, the OG image should include:
+     - Company name: "NextLevel Packaging UAE"
+     - Tagline: "Premium Packaging Materials for Dubai Businesses"
+     - Visual: Packaging boxes or related imagery
+     - Colors: Brand primary (#FF6B35) and accent
+     - Size: 1200x630 pixels (Facebook/LinkedIn standard)
+
+     Example using canvas (Node.js):
+     ===========================================
+     const { createCanvas } = require('canvas')
+     const fs = require('fs')
+
+     const canvas = createCanvas(1200, 630)
+     const ctx = canvas.getContext('2d')
+
+     // Background gradient
+     const gradient = ctx.createLinearGradient(0, 0, 1200, 630)
+     gradient.addColorStop(0, '#FF6B35')
+     gradient.addColorStop(1, '#1A3A5F')
+     ctx.fillStyle = gradient
+     ctx.fillRect(0, 0, 1200, 630)
+
+     // Text
+     ctx.fillStyle = 'white'
+     ctx.font = 'bold 60px Arial'
+     ctx.fillText('NextLevel Packaging UAE', 50, 250)
+
+     ctx.font = '40px Arial'
+     ctx.fillText('Premium Packaging Materials', 50, 330)
+     ctx.fillText('for Dubai Businesses', 50, 390)
+
+     const buffer = canvas.toBuffer('image/png')
+     fs.writeFileSync('public/images/og-image.png', buffer)
+-->
