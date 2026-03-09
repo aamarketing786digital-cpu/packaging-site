@@ -213,7 +213,7 @@ export default function ProductClient({ product, settings = {}, relatedProducts 
             </div>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {relatedProducts.map((p: any, i: number) => {
+              {relatedProducts.map((p: any) => {
                 const imageUrl = p.images?.[0]?.asset
                   ? urlFor(p.images[0].asset).width(200).height(200).url()
                   : null;
