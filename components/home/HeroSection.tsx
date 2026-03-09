@@ -3,6 +3,7 @@
 import { motion, Variants } from "framer-motion";
 import { ArrowRight, Package, Shield, Truck, Film, Box, PenTool } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 const container: Variants = {
   hidden: { opacity: 0 },
@@ -120,23 +121,29 @@ export default function HeroSection() {
             animate="show"
             className="hidden lg:grid grid-cols-2 grid-rows-2 gap-4 h-[600px] relative"
           >
-            {/* Main Feature - Corrugated Boxes */}
-            <motion.div variants={item} className="col-span-1 row-span-2 relative group overflow-hidden rounded-3xl bg-white border border-border-subtle shadow-[0_20px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.12)] transition-all duration-500">
-               <div className="absolute inset-0 bg-gradient-to-br from-orange-50 to-brand-accent/5 opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
+            {/* Main Feature - Premium Packaging */}
+            <motion.div variants={item} className="col-span-1 row-span-2 relative group overflow-hidden rounded-3xl bg-brand-primary border border-border-subtle shadow-[0_20px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.12)] transition-all duration-500">
+               {/* Image Background */}
+               <div className="absolute inset-0 z-0 overflow-hidden">
+                 <Image 
+                   src="/images/hero-boxes.png" 
+                   alt="Premium Packaging Solutions" 
+                   fill 
+                   className="object-cover object-right opacity-90 group-hover:scale-105 transition-transform duration-700"
+                   priority
+                 />
+                 {/* Dark overlay for text readability */}
+                 <div className="absolute inset-0 bg-gradient-to-t from-[#0A2540]/90 via-[#0A2540]/30 to-transparent mix-blend-multiply" />
+               </div>
+
                <div className="p-8 h-full flex flex-col justify-between relative z-10">
-                 <div className="bg-white w-14 h-14 rounded-2xl flex items-center justify-center shadow-md mb-6 group-hover:scale-110 transition-transform duration-500">
-                   <Box className="w-7 h-7 text-brand-accent" />
+                 <div className="bg-white/10 backdrop-blur-md border border-white/20 w-14 h-14 rounded-2xl flex items-center justify-center shadow-md mb-6 group-hover:scale-110 transition-transform duration-500">
+                   <Box className="w-7 h-7 text-white" />
                  </div>
                  <div className="mt-8">
-                   <h3 className="text-2xl font-bold text-brand-primary mb-2">Corrugated Boxes</h3>
-                   <p className="text-text-secondary font-medium">Heavy-duty protection for any kind of cargo.</p>
+                   <h3 className="text-2xl font-bold text-white mb-2 shadow-sm">Premium Packaging</h3>
+                   <p className="text-white/80 font-medium">Heavy-duty protection mapping your industrial needs.</p>
                  </div>
-                 {/* Decorative Box Illustration */}
-                 <div className="absolute -bottom-10 -right-10 w-64 h-64 bg-brand-primary/5 rounded-full blur-2xl group-hover:bg-brand-primary/10 transition-colors duration-500" />
-                 <Package 
-                    className="absolute -bottom-6 -right-6 w-40 h-40 text-brand-primary opacity-[0.03] group-hover:opacity-[0.06] transform rotate-12 group-hover:rotate-0 group-hover:scale-110 transition-all duration-700 pointer-events-none" 
-                    strokeWidth={1}
-                 />
                </div>
             </motion.div>
 
