@@ -3,7 +3,6 @@
 import { motion } from 'framer-motion'
 import { MapPin, Phone, Mail, MessageCircle, ArrowRight } from 'lucide-react'
 import ContactForm from '@/components/contact/ContactForm'
-import { getMotionConfig, prefersReducedMotion, isMobile } from '@/lib/mobile-performance'
 
 type ContactSettings = {
   phoneNumber?: string;
@@ -20,22 +19,12 @@ const DEFAULT_SETTINGS: ContactSettings = {
 }
 
 export default function ContactClient({ settings = {} }: { settings?: ContactSettings }) {
-  const config = { ...DEFAULT_SETTINGS, ...settings }
-  const shouldReduce = prefersReducedMotion()
-  const mobile = isMobile()
-
-  const container = getMotionConfig({
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: { staggerChildren: mobile ? 0 : 0.1 }
-    }
-  })
-
-  const item = getMotionConfig({
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0 }
-  })
+  const config = { 
+    phoneNumber: settings?.phoneNumber || DEFAULT_SETTINGS.phoneNumber,
+    whatsappNumber: settings?.whatsappNumber || DEFAULT_SETTINGS.whatsappNumber,
+    email: settings?.email || DEFAULT_SETTINGS.email,
+    address: settings?.address || DEFAULT_SETTINGS.address
+  }
 
   return (
     <main className="min-h-screen bg-bg-base overflow-hidden">
@@ -43,15 +32,13 @@ export default function ContactClient({ settings = {} }: { settings?: ContactSet
       <section className="relative pt-24 pb-12 sm:pt-32 sm:pb-16 lg:pt-40 lg:pb-24 overflow-hidden border-b border-white/10">
         <div className="absolute inset-0 bg-gradient-to-b from-brand-primary/[0.02] to-transparent" />
         {/* Reduce blur effects on mobile */}
-        <div className={`absolute top-0 right-0 bg-brand-primary/5 rounded-full blur-[100px] ${mobile ? 'w-[300px] h-[300px] -translate-y-1/2 translate-x-1/4' : 'w-[600px] h-[600px] -translate-y-1/2 translate-x-1/3'}`} />
-        <div className={`absolute bottom-0 left-0 bg-brand-accent/5 rounded-full blur-[80px] ${mobile ? 'w-[250px] h-[250px] translate-y-1/2 -translate-x-1/4' : 'w-[500px] h-[500px] translate-y-1/2 -translate-x-1/3'}`} />
+        <div className="absolute top-0 right-0 bg-brand-primary/5 rounded-full blur-[100px] w-[300px] h-[300px] md:w-[600px] md:h-[600px] -translate-y-1/2 translate-x-1/4 md:translate-x-1/3" />
+        <div className="absolute bottom-0 left-0 bg-brand-accent/5 rounded-full blur-[80px] w-[250px] h-[250px] md:w-[500px] md:h-[500px] translate-y-1/2 -translate-x-1/4 md:-translate-x-1/3" />
 
         <div className="container relative z-10 text-center px-4">
           <motion.div
-            {...getMotionConfig({
-              initial: { opacity: 0, scale: 0.9 },
-              animate: { opacity: 1, scale: 1 },
-            })}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
             className="inline-block px-3 sm:px-4 py-1.5 rounded-full bg-white border border-border-subtle shadow-sm mb-4 sm:mb-6"
           >
             <span className="text-xs sm:text-sm font-semibold tracking-wide text-brand-primary uppercase">
@@ -60,11 +47,9 @@ export default function ContactClient({ settings = {} }: { settings?: ContactSet
           </motion.div>
 
           <motion.h1
-            {...getMotionConfig({
-              initial: { opacity: 0, y: 20 },
-              animate: { opacity: 1, y: 0 },
-              transition: { delay: shouldReduce ? 0 : 0.1 },
-            })}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-heading font-black tracking-tight text-brand-primary mb-4 sm:mb-6"
           >
             Let's build your <br className="hidden md:block" />
@@ -74,11 +59,9 @@ export default function ContactClient({ settings = {} }: { settings?: ContactSet
           </motion.h1>
 
           <motion.p
-            {...getMotionConfig({
-              initial: { opacity: 0, y: 20 },
-              animate: { opacity: 1, y: 0 },
-              transition: { delay: shouldReduce ? 0 : 0.2 },
-            })}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
             className="text-base sm:text-lg md:text-xl text-text-secondary max-w-2xl mx-auto leading-relaxed px-2"
           >
             Have a question about volume pricing, custom specs, or delivery times?
@@ -93,13 +76,7 @@ export default function ContactClient({ settings = {} }: { settings?: ContactSet
 
           {/* Left Column: Bento Contact Methods */}
           <div className="lg:col-span-5 order-2 lg:order-1">
-            <motion.div
-              {...container}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, margin: mobile ? "0px" : "-100px" }}
-              className="grid sm:grid-cols-2 lg:grid-cols-1 gap-3 sm:gap-4"
-            >
+            <div className="grid sm:grid-cols-2 lg:grid-cols-1 gap-3 sm:gap-4">
               <h2 className="text-xl sm:text-2xl font-heading font-bold text-brand-primary mb-2 sm:col-span-2 lg:col-span-1">
                 Direct Channels
               </h2>
@@ -107,7 +84,10 @@ export default function ContactClient({ settings = {} }: { settings?: ContactSet
               {/* WhatsApp Card */}
               {config.whatsappNumber && (
                 <motion.a
-                  {...item}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ delay: 0.1 }}
                   href={`https://wa.me/${config.whatsappNumber.replace(/\D/g, '')}`}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -128,7 +108,10 @@ export default function ContactClient({ settings = {} }: { settings?: ContactSet
               {/* Email Card */}
               {config.email && (
                 <motion.a
-                  {...item}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ delay: 0.15 }}
                   href={`mailto:${config.email}`}
                   className="group relative bg-white border border-border-subtle rounded-2xl sm:rounded-3xl p-4 sm:p-6 hover:border-brand-primary/30 hover:shadow-xl hover:shadow-brand-primary/5 transition-all duration-300 overflow-hidden"
                 >
@@ -147,7 +130,10 @@ export default function ContactClient({ settings = {} }: { settings?: ContactSet
               {/* Phone Card */}
               {config.phoneNumber && (
                 <motion.a
-                  {...item}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ delay: 0.2 }}
                   href={`tel:${config.phoneNumber}`}
                   className="group relative bg-white border border-border-subtle rounded-2xl sm:rounded-3xl p-4 sm:p-6 hover:border-brand-primary/30 hover:shadow-xl hover:shadow-brand-primary/5 transition-all duration-300 overflow-hidden"
                 >
@@ -166,7 +152,10 @@ export default function ContactClient({ settings = {} }: { settings?: ContactSet
               {/* Address Card */}
               {config.address && (
                 <motion.div
-                  {...item}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ delay: 0.25 }}
                   className="group relative bg-white border border-border-subtle rounded-2xl sm:rounded-3xl p-4 sm:p-6 hover:border-brand-primary/30 hover:shadow-xl hover:shadow-brand-primary/5 transition-all duration-300 overflow-hidden"
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-brand-primary/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -177,17 +166,15 @@ export default function ContactClient({ settings = {} }: { settings?: ContactSet
                   <p className="text-text-secondary text-xs sm:text-sm font-medium">{config.address}</p>
                 </motion.div>
               )}
-            </motion.div>
+            </div>
           </div>
 
           {/* Right Column: Contact Form */}
           <div className="lg:col-span-7 order-1 lg:order-2">
             <motion.div
-              {...getMotionConfig({
-                initial: { opacity: 0, y: 20 },
-                animate: { opacity: 1, y: 0 },
-                transition: { delay: shouldReduce ? 0 : 0.3 },
-              })}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
             >
               <ContactForm />
             </motion.div>

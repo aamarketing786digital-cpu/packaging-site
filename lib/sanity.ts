@@ -1,5 +1,5 @@
 import { createClient } from 'next-sanity'
-import { apiVersion, dataset, projectId } from '@/sanity/env'
+import { apiVersion, dataset, projectId, token } from '@/sanity/env'
 
 // Validate Sanity configuration
 if (!projectId) {
@@ -19,6 +19,7 @@ const config = {
   stega: {
     enabled: false,
   },
+  token: token || undefined, // Use token for authenticated requests
 }
 
 export const client = createClient(config)
@@ -417,19 +418,23 @@ export async function getPostBySlug(slug: string) {
 }
 
 /**
- * Get site settings
+ * Get site settings - STATIC VALUES (not from Sanity)
+ * Contact details remain static and can be updated here
  */
 export async function getSettings() {
-  return sanityFetch<any>(
-    `*[_type == "settings"][0]{
-      whatsappNumber,
-      phoneNumber,
-      email,
-      address,
-      socialLinks,
-      businessHours
-    }`,
-    {},
-    ['settings']
-  )
+  // Static contact information - update these values directly
+  return {
+    whatsappNumber: '+971500000000',
+    phoneNumber: '+971500000000',
+    email: 'info@nextlevelpackaging.ae',
+    address: 'Dubai, UAE',
+    socialLinks: {
+      facebook: 'https://facebook.com/nextlevelpackaging',
+      instagram: 'https://instagram.com/nextlevelpackaging',
+      linkedin: 'https://linkedin.com/company/nextlevelpackaging',
+      twitter: 'https://twitter.com/nextlevelpackaging'
+    },
+    businessHours: 'Sat - Thu: 9:00 AM - 6:00 PM',
+    name: 'NextLevel Packaging UAE'
+  }
 }
