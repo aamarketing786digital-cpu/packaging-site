@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { urlFor } from '@/sanity/lib/image'
-import { Package } from 'lucide-react'
+import { Package, SearchX } from 'lucide-react'
 
 interface Product {
   _id: string
@@ -23,8 +23,35 @@ interface ProductGridProps {
 export default function ProductGrid({ products }: ProductGridProps) {
   if (!products || products.length === 0) {
     return (
-      <div className="text-center py-16">
-        <p className="text-text-secondary">No products found</p>
+      <div className="flex flex-col items-center justify-center py-24 px-4 text-center bg-white rounded-3xl border border-border-subtle shadow-sm relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay pointer-events-none"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-brand-primary/[0.02] to-transparent pointer-events-none"></div>
+        
+        <div className="w-24 h-24 bg-bg-subtle rounded-full flex items-center justify-center mb-6 relative z-10 border border-border-subtle/50 shadow-inner">
+          <SearchX className="w-10 h-10 text-brand-primary/40" />
+        </div>
+        
+        <h3 className="text-2xl sm:text-3xl font-heading font-bold text-brand-primary mb-3 relative z-10 tracking-tight">
+          No Products Found
+        </h3>
+        <p className="text-text-secondary max-w-md mx-auto mb-8 relative z-10 leading-relaxed text-balance text-sm sm:text-base">
+          We couldn't find any products matching your current filters. Try adjusting your search criteria or explore our full packaging catalog.
+        </p>
+        
+        <div className="relative z-10 flex flex-col sm:flex-row gap-3 w-full sm:w-auto px-4 sm:px-0">
+          <Link 
+            href="/products" 
+            className="w-full sm:w-auto px-8 py-3.5 bg-brand-primary text-white font-bold rounded-xl shadow-lg shadow-brand-primary/20 hover:shadow-brand-primary/40 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center"
+          >
+            Clear All Filters
+          </Link>
+          <Link 
+            href="/contact" 
+            className="w-full sm:w-auto px-8 py-3.5 bg-white text-brand-primary font-bold border-2 border-border-medium rounded-xl hover:border-brand-primary hover:bg-bg-subtle hover:-translate-y-1 transition-all duration-300 flex items-center justify-center"
+          >
+            Contact Sales
+          </Link>
+        </div>
       </div>
     )
   }

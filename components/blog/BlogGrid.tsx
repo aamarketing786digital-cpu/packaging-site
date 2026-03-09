@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { urlFor } from '@/sanity/lib/image'
+import { Search } from 'lucide-react'
 
 interface Post {
   _id: string
@@ -22,8 +23,27 @@ interface BlogGridProps {
 export default function BlogGrid({ posts }: BlogGridProps) {
   if (!posts || posts.length === 0) {
     return (
-      <div className="text-center py-16">
-        <p className="text-text-secondary">No blog posts found</p>
+      <div className="flex flex-col items-center justify-center py-20 px-4 text-center bg-white rounded-3xl border border-border-subtle shadow-sm relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay pointer-events-none"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-brand-primary/[0.02] to-transparent pointer-events-none"></div>
+        
+        <div className="w-20 h-20 bg-brand-primary/5 rounded-full flex items-center justify-center mb-6 relative z-10">
+          <Search className="w-10 h-10 text-brand-primary/40" />
+        </div>
+        
+        <h3 className="text-2xl font-heading font-bold text-brand-primary mb-3 relative z-10">
+          No Insights Found
+        </h3>
+        <p className="text-text-secondary max-w-sm mb-8 relative z-10">
+          It looks like there aren't any blog posts matching your current criteria. Check back soon or clear your filters to explore our industry insights.
+        </p>
+        
+        <Link 
+          href="/blog" 
+          className="relative z-10 px-8 py-3.5 bg-brand-primary text-white font-bold rounded-xl shadow-lg shadow-brand-primary/20 hover:shadow-brand-primary/30 hover:-translate-y-0.5 transition-all duration-300"
+        >
+          View All Posts
+        </Link>
       </div>
     )
   }
