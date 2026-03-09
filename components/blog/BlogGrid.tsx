@@ -29,8 +29,8 @@ export default function BlogGrid({ posts }: BlogGridProps) {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {posts.map((post) => (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+      {posts.map((post, index) => (
         <Link
           key={post._id}
           href={`/blog/${typeof post.slug === 'string' ? post.slug : post.slug.current}`}
@@ -38,7 +38,7 @@ export default function BlogGrid({ posts }: BlogGridProps) {
         >
           <article className="group/card bg-white rounded-2xl overflow-hidden border border-border-subtle hover:border-brand-primary/20 hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] transition-all duration-500 h-full flex flex-col relative">
             <div className="absolute inset-0 bg-gradient-to-br from-brand-primary/[0.02] to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500" />
-            
+
             {/* Featured badge */}
             {post.featured && (
               <div className="absolute top-4 left-4 z-20">
@@ -48,7 +48,7 @@ export default function BlogGrid({ posts }: BlogGridProps) {
               </div>
             )}
 
-            {/* Post Image */}
+            {/* Post Image - Optimized for mobile */}
             {post.mainImage ? (
               <div className="aspect-[16/10] bg-bg-subtle overflow-hidden relative border-b border-border-subtle">
                 <Image
@@ -57,6 +57,8 @@ export default function BlogGrid({ posts }: BlogGridProps) {
                   fill
                   className="object-cover group-hover/card:scale-105 transition-transform duration-700 ease-out z-0"
                   sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  priority={index === 0} // Priority for first image (LCP)
+                  loading={index === 0 ? undefined : 'lazy'} // Lazy load others
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 z-10 pointer-events-none" />
               </div>
@@ -67,14 +69,14 @@ export default function BlogGrid({ posts }: BlogGridProps) {
             )}
 
             {/* Post Content */}
-            <div className="p-6 md:p-8 flex flex-col flex-grow relative z-10">
+            <div className="p-5 sm:p-6 lg:p-8 flex flex-col flex-grow relative z-10">
               {/* Categories & Date */}
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center justify-between mb-3 sm:mb-4">
                 {post.categories && post.categories.length > 0 && (
                   <div className="flex flex-wrap gap-2">
-                    {post.categories.slice(0, 1).map((category, index) => (
+                    {post.categories.slice(0, 1).map((category, idx) => (
                       <span
-                        key={index}
+                        key={idx}
                         className="text-xs font-bold text-brand-accent uppercase tracking-wider"
                       >
                         {category.name}
@@ -92,19 +94,19 @@ export default function BlogGrid({ posts }: BlogGridProps) {
               </div>
 
               {/* Title */}
-              <h3 className="text-xl font-heading font-bold mb-3 line-clamp-2 text-brand-primary group-hover/card:text-brand-accent transition-colors leading-tight">
+              <h3 className="text-lg sm:text-xl font-heading font-bold mb-2 sm:mb-3 line-clamp-2 text-brand-primary group-hover/card:text-brand-accent transition-colors leading-tight">
                 {post.title}
               </h3>
 
-              {/* Summary */}
+              {/* Summary - Hide on very small screens */}
               {post.summary && (
-                <p className="text-text-secondary text-sm line-clamp-3 mb-6 font-medium leading-relaxed">
+                <p className="text-text-secondary text-sm line-clamp-2 sm:line-clamp-3 mb-4 sm:mb-6 font-medium leading-relaxed hidden sm:block">
                   {post.summary}
                 </p>
               )}
 
               {/* CTA */}
-              <div className="mt-auto pt-5 border-t border-border-subtle flex items-center justify-between">
+              <div className="mt-auto pt-4 sm:pt-5 border-t border-border-subtle flex items-center justify-between">
                  <span className="text-sm font-bold text-brand-primary group-hover/card:text-brand-accent transition-colors">
                    Read Article
                  </span>
@@ -122,11 +124,11 @@ export default function BlogGrid({ posts }: BlogGridProps) {
 
 BlogGrid.Skeleton = function Skeleton() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
       {[1, 2, 3, 4, 5, 6].map((i) => (
         <div key={i} className="border border-border-subtle rounded-lg overflow-hidden">
-          <div className="aspect-video bg-bg-subtle animate-pulse" />
-          <div className="p-6 space-y-3">
+          <div className="aspect-[16/10] bg-bg-subtle animate-pulse" />
+          <div className="p-5 sm:p-6 space-y-3">
             <div className="h-4 bg-bg-subtle rounded animate-pulse w-20" />
             <div className="h-6 bg-bg-subtle rounded animate-pulse" />
             <div className="h-4 bg-bg-subtle rounded animate-pulse" />
