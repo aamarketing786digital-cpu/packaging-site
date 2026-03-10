@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Outfit, Plus_Jakarta_Sans } from "next/font/google";
 import dynamic from "next/dynamic";
+import { headers } from "next/headers";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import OrganizationJsonLd from "@/components/seo/OrganizationJsonLd";
@@ -104,20 +105,32 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [settings, categories] = await Promise.all([
-    getSettings(),
-    getCategories()
-  ])
+  const headersList = await headers();
+  const pathname = headersList.get("x-pathname") || "";
+  const isStudio = pathname.startsWith("/studio");
+
+  // Skip fetching site data for studio pages
+  const [settings, categories] = isStudio
+    ? [undefined, []]
+    : await Promise.all([getSettings(), getCategories()]);
 
   return (
     <html lang="en" className={`${outfit.variable} ${plusJakartaSans.variable}`}>
-      <body className="font-body min-h-screen flex flex-col">
-        <OrganizationJsonLd settings={settings} />
-        <Analytics />
-        <Header categories={categories} />
-        <main className="flex-1 pt-[100px]">{children}</main>
-        <Footer />
-        <WhatsAppFloat />
+      <body className={`font-body min-h-screen flex flex-col ${isStudio ? 'bg-white' : ''}`}>
+        {!isStudio && (
+          <>
+            <OrganizationJsonLd settings={settings} />
+            <Analytics />
+            <Header categories={categories} />
+          </>
+        )}
+        <main className={isStudio ? "flex-1" : "flex-1 pt-[100px]"}>{children}</main>
+        {!isStudio && (
+          <>
+            <Footer />
+            <WhatsAppFloat />
+          </>
+        )}
       </body>
     </html>
   );
