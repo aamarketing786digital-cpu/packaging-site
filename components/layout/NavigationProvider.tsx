@@ -13,7 +13,7 @@ export default function NavigationProvider({ children }: { children: React.React
   const [isLoading, setIsLoading] = useState(false)
   const isInitialLoad = useRef(true)
   const previousPathname = useRef(pathname)
-  const timerRef = useRef<NodeJS.Timeout>()
+  const timerRef = useRef<NodeJS.Timeout | undefined>(undefined)
 
   useEffect(() => {
     // Skip showing loader on initial page load
