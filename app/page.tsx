@@ -1,5 +1,5 @@
 import { Suspense } from 'react'
-import { getProducts, getCategories } from '@/lib/sanity'
+import { getFeaturedProducts, getCategories } from '@/lib/sanity'
 import { Metadata } from 'next'
 import HeroSection from '@/components/home/HeroSection'
 import dynamic from 'next/dynamic'
@@ -40,7 +40,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function HomePage() {
   // Fetch data for homepage sections
   const [products, categories] = await Promise.all([
-    getProducts(),
+    getFeaturedProducts(),
     getCategories(),
   ])
 

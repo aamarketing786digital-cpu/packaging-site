@@ -168,9 +168,38 @@ export async function getProducts() {
       mainImage{..., asset->},
       pricing,
       badges,
+      featured,
       seo
     }|order(order asc)`
   )
+}
+
+/**
+ * Get featured products for homepage
+ * Falls back to all products if none are marked as featured
+ */
+export async function getFeaturedProducts() {
+  const featured = await sanityFetch<any[]>(
+    `*[_type == "product" && featured == true]{
+      _id,
+      name,
+      "slug": slug.current,
+      sku,
+      category->{name, "slug": slug.current},
+      images[]{..., asset->},
+      mainImage{..., asset->},
+      pricing,
+      badges,
+      featured
+    }|order(order asc)`
+  )
+  
+  // Fallback: if no products are marked featured, return first 6 of all products
+  if (!featured || featured.length === 0) {
+    return getProducts()
+  }
+  
+  return featured
 }
 
 /**

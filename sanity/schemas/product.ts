@@ -48,6 +48,13 @@ export const productSchema = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'featured',
+      title: 'Featured Product',
+      type: 'boolean',
+      description: 'Show this product on the homepage featured section',
+      initialValue: false,
+    }),
+    defineField({
       name: 'description',
       title: 'Description',
       type: 'object',
@@ -202,11 +209,12 @@ export const productSchema = defineType({
     select: {
       title: 'name.en',
       sku: 'sku',
+      featured: 'featured',
       media: 'images.0.asset',
     },
     prepare(selection) {
       return {
-        title: selection.title,
+        title: `${selection.featured ? '⭐ ' : ''}${selection.title}`,
         subtitle: `SKU: ${selection.sku}`,
         media: selection.media,
       }
