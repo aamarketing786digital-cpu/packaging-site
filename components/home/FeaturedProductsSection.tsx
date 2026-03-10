@@ -79,6 +79,7 @@ export default function FeaturedProductsSection({ products }: FeaturedProductsSe
                 <Link
                   href={`/products/${product.category?.slug || 'all'}/${typeof product.slug === 'string' ? product.slug : product.slug.current}`}
                   className="group block h-full"
+                  prefetch={false} // Disable prefetch to prevent excessive requests
                 >
                   <div className="group/card bg-white rounded-2xl overflow-hidden border border-border-subtle hover:border-brand-primary/20 hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] transition-all duration-500 h-full flex flex-col">
                     {/* Product Image */}

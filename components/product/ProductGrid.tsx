@@ -64,6 +64,7 @@ export default function ProductGrid({ products }: ProductGridProps) {
           key={product._id}
           href={`/products/${typeof product.category.slug === 'string' ? product.category.slug : product.category.slug.current}/${typeof product.slug === 'string' ? product.slug : product.slug.current}`}
           className="group"
+          prefetch={false} // Disable prefetch to prevent excessive requests
         >
           <div className="group/card bg-white rounded-2xl overflow-hidden border border-border-subtle hover:border-brand-primary/20 hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] transition-all duration-500 h-full flex flex-col">
             {/* Product Image */}

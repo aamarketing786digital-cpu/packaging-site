@@ -222,6 +222,7 @@ export default function ProductClient({ product, settings = {}, relatedProducts 
                   key={p._id}
                   href={`/products/${p.category?.slug?.current || 'all'}/${p.slug?.current || p.slug}`}
                   className="group block h-full"
+                  prefetch={false} // Disable prefetch to prevent excessive requests
                 >
                   <div className="bg-white rounded-2xl overflow-hidden border border-border-subtle hover:border-brand-primary/20 hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] transition-all duration-500 flex items-center p-4 gap-4 h-full">
                      <div className="w-24 h-24 rounded-xl bg-bg-subtle flex-shrink-0 relative overflow-hidden flex items-center justify-center border border-border-subtle group-hover:border-brand-primary/20 transition-colors">

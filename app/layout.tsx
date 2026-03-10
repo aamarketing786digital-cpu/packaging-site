@@ -15,6 +15,9 @@ const WhatsAppFloat = dynamic(
 const Analytics = dynamic(
   () => import("@/components/analytics/Analytics")
 );
+const NavigationProvider = dynamic(
+  () => import("@/components/layout/NavigationProvider")
+);
 
 /* ============================================================
    TYPOGRAPHY SETUP (Constitution requirement)
@@ -124,7 +127,9 @@ export default async function RootLayout({
             <Header categories={categories} />
           </>
         )}
-        <main className={isStudio ? "flex-1" : "flex-1 pt-[100px]"}>{children}</main>
+        <NavigationProvider>
+          <main className={isStudio ? "flex-1" : "flex-1 pt-[100px]"}>{children}</main>
+        </NavigationProvider>
         {!isStudio && (
           <>
             <Footer />
