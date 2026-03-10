@@ -14,6 +14,7 @@ interface Product {
   sku: string
   category?: { name: string; slug: string }
   mainImage?: { asset: any; alt?: string }
+  images?: Array<{ asset: any; alt?: string }>
   pricing?: { showPrice: boolean; priceFrom?: number; priceTo?: number }
   badges?: Array<{ label: string; color: string }>
 }
@@ -81,11 +82,11 @@ export default function FeaturedProductsSection({ products }: FeaturedProductsSe
                 >
                   <div className="group/card bg-white rounded-2xl overflow-hidden border border-border-subtle hover:border-brand-primary/20 hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] transition-all duration-500 h-full flex flex-col">
                     {/* Product Image */}
-                    {product.mainImage ? (
+                    {(product.images?.[0]?.asset || product.mainImage?.asset) ? (
                       <div className="aspect-[4/3] bg-bg-subtle overflow-hidden relative border-b border-border-subtle">
                         <Image
-                          src={urlFor(product.mainImage.asset).width(600).height(450).url()}
-                          alt={product.mainImage.alt || product.name.en}
+                          src={urlFor(product.images?.[0]?.asset || product.mainImage?.asset).width(600).height(450).url()}
+                          alt={product.images?.[0]?.alt || product.mainImage?.alt || product.name.en}
                           width={600}
                           height={450}
                           className="object-cover w-full h-full group-hover/card:scale-105 transition-transform duration-700 ease-out"

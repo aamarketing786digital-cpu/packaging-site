@@ -165,7 +165,7 @@ export async function getProducts() {
       sku,
       category->{name, "slug": slug.current},
       images[]{..., asset->},
-      mainImage,
+      mainImage{..., asset->},
       pricing,
       badges,
       seo
