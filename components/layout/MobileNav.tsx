@@ -36,11 +36,11 @@ export default function MobileNav({ isOpen, onClose, categories }: MobileNavProp
       />
 
       {/* Mobile Menu */}
-      <div className="fixed inset-y-0 left-0 z-[55] w-full max-w-sm bg-bg-elevated shadow-xl">
-        <div className="flex flex-col h-full pt-20">
+      <div className="fixed inset-y-0 left-0 z-[70] w-full max-w-sm bg-bg-elevated shadow-xl">
+        <div className="flex flex-col h-full">
           
           {/* Logo inside Drawer */}
-          <div className="px-6 pb-6 pt-2 border-b border-border-subtle">
+          <div className="px-6 py-6 border-b border-border-subtle flex items-center justify-center">
             <Link href="/" onClick={onClose} className="flex items-center gap-3 group">
               <div className="relative h-10 w-10 sm:h-12 sm:w-12 rounded-xl sm:rounded-2xl bg-gradient-to-br from-brand-primary to-brand-medium shadow-lg shadow-brand-primary/20 flex items-center justify-center overflow-hidden transition-transform duration-500 group-hover:scale-105">
                 <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
@@ -82,7 +82,7 @@ export default function MobileNav({ isOpen, onClose, categories }: MobileNavProp
                       key={cat._id}
                       href={`/products/${cat.slug}`}
                       onClick={onClose}
-                      className="block py-2.5 px-4 text-sm font-medium text-text-secondary hover:text-brand-primary transition-colors flex items-center justify-between group"
+                      className="flex py-2.5 px-4 text-sm font-medium text-text-secondary hover:text-brand-primary transition-colors items-center justify-between group"
                     >
                       {cat.name}
                       <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300" />

@@ -38,7 +38,7 @@ const testimonials = [
 export default function TestimonialsSection() {
   const [[currentIndex, direction], setPage] = useState([0, 0])
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, amount: 0.2 })
+  const isInView = useInView(ref, { once: true, amount: 0.1 })
 
   const nextTestimonial = () => {
     setPage([(currentIndex + 1) % testimonials.length, 1])

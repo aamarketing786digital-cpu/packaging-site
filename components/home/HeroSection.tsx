@@ -9,7 +9,7 @@ const container: Variants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { staggerChildren: 0.1, delayChildren: 0.2 },
+    transition: { staggerChildren: 0.05, delayChildren: 0.1 },
   },
 };
 
@@ -119,10 +119,10 @@ export default function HeroSection() {
             variants={container}
             initial="hidden"
             animate="show"
-            className="hidden lg:grid grid-cols-2 grid-rows-2 gap-4 h-[600px] relative"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 grid-rows-none lg:grid-rows-2 gap-4 h-auto lg:h-[600px] relative"
           >
             {/* Main Feature - Premium Packaging */}
-            <motion.div variants={item} className="col-span-1 row-span-2 relative group overflow-hidden rounded-3xl bg-brand-primary border border-border-subtle shadow-[0_20px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.12)] transition-all duration-500">
+            <motion.div variants={item} className="col-span-1 sm:col-span-2 lg:col-span-1 lg:row-span-2 relative group overflow-hidden rounded-3xl bg-brand-primary border border-border-subtle shadow-[0_20px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.12)] transition-all duration-500 aspect-square sm:aspect-auto min-h-[300px] lg:min-h-0">
                {/* Image Background */}
                <div className="absolute inset-0 z-0 overflow-hidden">
                  <Image 
@@ -136,44 +136,44 @@ export default function HeroSection() {
                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A2540]/90 via-[#0A2540]/30 to-transparent mix-blend-multiply" />
                </div>
 
-               <div className="p-8 h-full flex flex-col justify-between relative z-10">
-                 <div className="bg-white/10 backdrop-blur-md border border-white/20 w-14 h-14 rounded-2xl flex items-center justify-center shadow-md mb-6 group-hover:scale-110 transition-transform duration-500">
-                   <Box className="w-7 h-7 text-white" />
+               <div className="p-6 sm:p-8 h-full flex flex-col justify-between relative z-10">
+                 <div className="bg-white/10 backdrop-blur-md border border-white/20 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center shadow-md mb-6 group-hover:scale-110 transition-transform duration-500">
+                   <Box className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
                  </div>
                  <div className="mt-8">
-                   <h3 className="text-2xl font-bold text-white mb-2 shadow-sm">Premium Packaging</h3>
-                   <p className="text-white/80 font-medium">Heavy-duty protection mapping your industrial needs.</p>
+                   <h3 className="text-xl sm:text-2xl font-bold text-white mb-2 shadow-sm">Premium Packaging</h3>
+                   <p className="text-white/80 font-medium text-sm sm:text-base">Heavy-duty protection mapping your industrial needs.</p>
                  </div>
                </div>
             </motion.div>
 
             {/* Special Feature 1 - Stretch Films */}
-            <motion.div variants={item} className="col-span-1 row-span-1 relative group overflow-hidden rounded-3xl bg-brand-primary border border-brand-primary shadow-xl hover:shadow-2xl transition-all duration-500">
+            <motion.div variants={item} className="col-span-1 row-span-1 relative group overflow-hidden rounded-3xl bg-brand-primary border border-brand-primary shadow-xl hover:shadow-2xl transition-all duration-500 min-h-[160px]">
                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay" />
-               <div className="p-8 h-full flex items-center justify-between relative z-10">
+               <div className="p-6 sm:p-8 h-full flex items-center justify-between relative z-10">
                  <div>
-                   <h3 className="text-xl font-bold text-white mb-2">Stretch Films</h3>
-                   <p className="text-white/70 font-medium text-sm">Industrial grade wraps.</p>
+                   <h3 className="text-lg sm:text-xl font-bold text-white mb-2">Stretch Films</h3>
+                   <p className="text-white/70 font-medium text-xs sm:text-sm">Industrial grade wraps.</p>
                  </div>
-                 <div className="bg-white/10 backdrop-blur-md w-14 h-14 rounded-2xl flex items-center justify-center border border-white/20 group-hover:scale-110 group-hover:bg-brand-accent transition-all duration-500 shrink-0">
-                   <Film className="w-7 h-7 text-white" />
+                 <div className="bg-white/10 backdrop-blur-md w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center border border-white/20 group-hover:scale-110 group-hover:bg-brand-accent transition-all duration-500 shrink-0">
+                   <Film className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
                  </div>
                </div>
             </motion.div>
 
             {/* Special Feature 2 - Custom Solutions */}
-            <motion.div variants={item} className="col-span-1 row-span-1 relative group overflow-hidden rounded-3xl bg-white border border-border-subtle shadow-[0_20px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.12)] transition-all duration-500">
+            <motion.div variants={item} className="col-span-1 row-span-1 relative group overflow-hidden rounded-3xl bg-white border border-border-subtle shadow-[0_20px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.12)] transition-all duration-500 min-h-[160px]">
                <div className="absolute inset-0 bg-gradient-to-tl from-emerald-50 to-transparent opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
-               <div className="p-8 h-full flex flex-col justify-between relative z-10">
+               <div className="p-6 sm:p-8 h-full flex flex-col justify-between relative z-10">
                  <div className="flex items-center justify-between w-full">
-                    <span className="inline-flex px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold uppercase tracking-wider">
+                    <span className="inline-flex px-2 py-0.5 sm:px-3 sm:py-1 rounded-full bg-emerald-100 text-emerald-700 text-[10px] sm:text-xs font-bold uppercase tracking-wider">
                       Sustainable
                     </span>
-                    <PenTool className="w-6 h-6 text-emerald-500 group-hover:-rotate-12 transition-transform duration-500" />
+                    <PenTool className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-500 group-hover:-rotate-12 transition-transform duration-500" />
                  </div>
                  <div>
-                   <h3 className="text-xl font-bold text-brand-primary mb-1">Kraft Paper</h3>
-                   <p className="text-text-secondary font-medium text-sm flex items-center gap-1 group-hover:text-brand-primary transition-colors">
+                   <h3 className="text-lg sm:text-xl font-bold text-brand-primary mb-1">Kraft Paper</h3>
+                   <p className="text-text-secondary font-medium text-xs sm:text-sm flex items-center gap-1 group-hover:text-brand-primary transition-colors">
                      Eco-friendly wrapping <ArrowRight className="w-4 h-4" />
                    </p>
                  </div>

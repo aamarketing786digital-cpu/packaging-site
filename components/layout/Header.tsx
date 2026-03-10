@@ -48,17 +48,19 @@ export default function Header({ categories }: HeaderProps) {
               }`}
           >
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-3 group relative z-10 shrink-0">
-              <div className="relative h-10 w-10 sm:h-12 sm:w-12 rounded-xl sm:rounded-2xl bg-gradient-to-br from-brand-primary to-brand-medium shadow-lg shadow-brand-primary/20 flex items-center justify-center overflow-hidden transition-transform duration-500 group-hover:scale-105">
-                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
-                <Package className="w-5 h-5 sm:w-6 sm:h-6 text-white absolute transform group-hover:-translate-y-10 transition-transform duration-500 ease-in-out" />
-                <span className="text-white font-bold text-xl sm:text-2xl leading-none absolute transform translate-y-10 group-hover:translate-y-0 transition-transform duration-500 ease-in-out">N</span>
-              </div>
-              <span className="font-heading font-bold text-xl sm:text-2xl text-brand-primary tracking-tight hidden sm:block">
-                NextLevel
-                <span className="text-brand-accent">.</span>
-              </span>
-            </Link>
+            {!mobileMenuOpen && (
+              <Link href="/" className="flex items-center gap-3 group relative z-10 shrink-0">
+                <div className="relative h-10 w-10 sm:h-12 sm:w-12 rounded-xl sm:rounded-2xl bg-gradient-to-br from-brand-primary to-brand-medium shadow-lg shadow-brand-primary/20 flex items-center justify-center overflow-hidden transition-transform duration-500 group-hover:scale-105">
+                  <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
+                  <Package className="w-5 h-5 sm:w-6 sm:h-6 text-white absolute transform group-hover:-translate-y-10 transition-transform duration-500 ease-in-out" />
+                  <span className="text-white font-bold text-xl sm:text-2xl leading-none absolute transform translate-y-10 group-hover:translate-y-0 transition-transform duration-500 ease-in-out">N</span>
+                </div>
+                <span className="font-heading font-bold text-xl sm:text-2xl text-brand-primary tracking-tight hidden sm:block">
+                  NextLevel
+                  <span className="text-brand-accent">.</span>
+                </span>
+              </Link>
+            )}
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center justify-center absolute inset-0 pointer-events-none">

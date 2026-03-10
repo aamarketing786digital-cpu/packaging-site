@@ -26,7 +26,7 @@ const container = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { staggerChildren: 0.1 }
+    transition: { staggerChildren: 0.05 }
   }
 }
 
@@ -41,7 +41,7 @@ const item = {
 
 export default function FeaturedProductsSection({ products }: FeaturedProductsSectionProps) {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, amount: 0.2 })
+  const isInView = useInView(ref, { once: true, amount: 0.1 })
 
   // Get featured products (up to 6)
   const featuredProducts = products?.slice(0, 6) ?? []
@@ -158,7 +158,7 @@ export default function FeaturedProductsSection({ products }: FeaturedProductsSe
         <motion.div
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
-          transition={{ delay: 0.6, duration: 0.6 }}
+          transition={{ delay: 0.2, duration: 0.4 }}
           className="text-center mt-12"
         >
           <Link
