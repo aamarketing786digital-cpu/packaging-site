@@ -7,6 +7,21 @@ export const productSchema = defineType({
   type: 'document',
   icon: PackageIcon,
   fields: [
+    // Visibility & Status
+    defineField({
+      name: 'active',
+      title: 'Active Product',
+      type: 'boolean',
+      description: 'Turn off to hide this product from the website',
+      initialValue: true,
+    }),
+    defineField({
+      name: 'featured',
+      title: 'Featured Product',
+      type: 'boolean',
+      description: 'Show this product on the homepage featured section',
+      initialValue: false,
+    }),
     // Basic Info
     defineField({
       name: 'name',
@@ -46,20 +61,6 @@ export const productSchema = defineType({
       type: 'reference',
       to: [{ type: 'category' }],
       validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'featured',
-      title: 'Featured Product',
-      type: 'boolean',
-      description: 'Show this product on the homepage featured section',
-      initialValue: false,
-    }),
-    defineField({
-      name: 'active',
-      title: 'Active Product',
-      type: 'boolean',
-      description: 'Turn off to hide this product from the website',
-      initialValue: true,
     }),
     defineField({
       name: 'description',
